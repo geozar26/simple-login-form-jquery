@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8">
+  <title>jQuery Validation με Στυλ</title>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: honeydew; /* χρώμα φόντου */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #myForm {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    }
+    label {
+      font-weight: bold;
+    }
+    input {
+      width: 100%;
+      padding: 8px;
+      margin: 5px 0 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #1E90FF ;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0000ff;
+    }
+    .error {
+      color: red;
+      font-size: 14px;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm">
+    <label for="username">Όνομα Χρήστη:</label><br>
+    <input type="text" id="username" name="username">
+    <span id="usernameError" class="error"></span><br>
+
+    <label for="password">Κωδικός:</label><br>
+    <input type="password" id="password" name="password">
+    <span id="passwordError" class="error"></span><br>
+
+    <button type="submit">Υποβολή</button>
+  </form>
+
+  <script>
+    $(document).ready(function () {
+      $("#myForm").submit(function (e) {
+        e.preventDefault(); 
+        let valid = true;
+
+        $(".error").text("");
+
+        if ($("#username").val().trim() === "") {
+          $("#usernameError").text("Το όνομα χρήστη είναι υποχρεωτικό");
+          valid = false;
+        }
+
+        if ($("#password").val().trim() === "") {
+          $("#passwordError").text("Ο κωδικός είναι υποχρεωτικός");
+          valid = false;
+        } else if ($("#password").val().length < 6) {
+          $("#passwordError").text("Ο κωδικός πρέπει να έχει τουλάχιστον 6 χαρακτήρες");
+          valid = false;
+        }
+
+        if (valid) {
+          alert("Η φόρμα υποβλήθηκε επιτυχώς!");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
